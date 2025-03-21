@@ -1,0 +1,138 @@
+/* Step Navigation (Scrollable on Small Screens) */
+.twitter-bs-wizard-nav-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 10px;
+}
+
+.twitter-bs-wizard-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    // padding: 10px;
+}
+
+.twitter-bs-wizard-nav::-webkit-scrollbar {
+    display: none;
+}
+
+/* Ensures steps are clickable and properly spaced */
+.twitter-bs-wizard-nav .nav-item {
+    flex: 1;
+    min-width: 180px;
+    text-align: center;
+}
+
+/* Progress Bar */
+.twitter-bs-wizard .progress {
+    margin-top: 10px;
+}
+
+/* Previous and Next Buttons */
+.twitter-bs-wizard-pager-link {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.twitter-bs-wizard-pager-link li {
+    flex: 1;
+    text-align: center;
+}
+
+.requireField{
+    color: #ff0909;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.education-form {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, padding 0.3s ease-in-out;
+    padding: 0 15px;
+    visibility: hidden;
+}
+
+.education-form.open {
+    max-height: 1000px; /* Large enough for content */
+    padding: 15px;
+    animation: fadeIn 0.5s ease-in-out forwards;
+    opacity: 1;
+    visibility: visible;
+}
+
+.education-form.close {
+    animation: fadeOut 0.5s ease-in-out forwards;
+    opacity: 0;
+    transition-delay: 0.5s; /* Delays max-height collapse */
+    max-height: 0;
+    padding: 0;
+    visibility: hidden;
+}
+
+// .step-nav-link {
+//     padding: 10px 15px;
+//     display: flex;
+//     align-items: center;
+//     gap: 10px;
+//     transition: all 0.3s ease;
+//     text-decoration: none;
+// }
+
+// .step-circle {
+//     width: 40px;
+//     height: 40px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     border-radius: 50%;
+//     font-weight: bold;
+//     font-size: 16px;
+//     color: white;
+//     background-color: #6c63ff; /* Default Purple */
+//     transition: background-color 0.3s ease;
+// }
+
+// .completed-step .step-circle {
+//     background-color: #28a745 !important; /* Green when completed */
+//     color: white !important;
+// }
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+// input[type="text"],
+// input[type="email"],
+// input[type="number"],
+// textarea {
+//     text-transform: uppercase;
+// }
