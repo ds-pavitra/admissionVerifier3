@@ -35,9 +35,9 @@ class SidebarContent extends Component {
   UNSAFE_componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
 
-        if (this.props.type !== prevProps.type) {
-            this.initMenu();
-        }
+      if (this.props.type !== prevProps.type) {
+        this.initMenu();
+      }
 
     }
     if (this.props.router.location.pathname !== prevProps.router.location.pathname) {
@@ -68,6 +68,7 @@ class SidebarContent extends Component {
   }
 
   activateParentDropdown = item => {
+    this.removeActiveClass();
     item.classList.add("active");
     const parent = item.parentElement;
 
@@ -94,6 +95,26 @@ class SidebarContent extends Component {
     return false;
   };
 
+  removeActiveClass = () => {
+    var ul = document.getElementById("side-menu");
+    var items = ul.getElementsByTagName("a");
+    for (var i = 0; i < items.length; ++i) {
+      items[i].classList.remove("active");
+      items[i].parentElement?.classList.remove("mm-active");
+      items[i].parentElement?.parentElement?.classList.remove("mm-show");
+    }
+  };
+
+  handleMenuClick = (event, path) => {
+    event.preventDefault(); // Prevent default click behavior
+    this.setState({ pathName: path }, () => {
+      this.initMenu(); // Reinitialize menu for active state
+    });
+
+    // Navigate to the route
+    this.props.router.navigate(path);
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -103,20 +124,26 @@ class SidebarContent extends Component {
             <li className="menu-title">{this.props.t('Menu')}</li>
 
             <li>
-              <Link to="/dashboard" className="waves-effect">
+              <Link to="/dashboard" className="waves-effect"
+                onClick={(e) => this.handleMenuClick(e, "/dashboard")}
+              >
                 <i className="ri-dashboard-line"></i>
                 <span className="ms-1">{this.props.t('Dashboard')}</span>
               </Link>
             </li>
 
             <li>
-              <Link to="/applications" className="waves-effect">
+              <Link to="/applications" className="waves-effect"
+                onClick={(e) => this.handleMenuClick(e, "/applications")}
+              >
                 <i className="ri-user-2-line"></i>
                 <span className="ms-1">{this.props.t('Applications')}</span>
               </Link>
             </li>
             {/* <li>
-              <Link to="/reverification" className="waves-effect">
+              <Link to="/reverification" className="waves-effect"
+                onClick={(e) => this.handleMenuClick(e, "/reverification")}
+              >
                 <i className="ri-user-2-line"></i>
                 <span className="ms-1">{this.props.t('Reverificaion')}</span>
               </Link>

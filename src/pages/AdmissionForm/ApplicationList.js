@@ -13,6 +13,9 @@ const ApplicationList = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedApplication, setSelectedApplication] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
+    const [applicationStatus, setApplicationStatus] = useState();
+    const [applicationRemark, setApplicationRemark] = useState();
+    
 
     const applicantsApiUrl = `${apiBaseUrl}/verification/list`;
 
@@ -44,8 +47,10 @@ const ApplicationList = () => {
 
     // Handle "View" button click
     const handleViewApplication = (application) => {
-        console.log(application);        
-        setSelectedApplication(application);
+        console.log(application.id);        
+        setApplicationStatus(application.verification_status)
+        setApplicationRemark(application.verification_remark)
+        setSelectedApplication(application.id);
         setModalOpen(true);
     };
 
@@ -74,6 +79,7 @@ const ApplicationList = () => {
     const columns = useMemo(() => [
         { Header: "#", accessor: "index", Cell: ({ row }) => row.index + 1 },
         { Header: "Application No", accessor: "application_no" },
+        { Header: "Course Name", accessor: "course_name" },
         { Header: "First Name", accessor: "first_name" },
         { Header: "Middle Name", accessor: "middle_name" },
         { Header: "Last Name", accessor: "last_name" },
@@ -98,12 +104,11 @@ const ApplicationList = () => {
             )
         },
         { Header: "Verified By", accessor: "verified_by_name" },
-        { Header: "Course Name", accessor: "course_name" },
         {
             Header: "Actions",
             accessor: "actions",
             Cell: ({ row }) => (
-                <Button color="info" size="sm" onClick={() => handleViewApplication(row.original.id)}>
+                <Button color="info" size="sm" onClick={() => handleViewApplication(row.original)}>
                     View
                 </Button>
             ),
@@ -157,7 +162,7 @@ const ApplicationList = () => {
             <Modal isOpen={modalOpen} toggle={closeModal} size="xl">
                 <ModalHeader toggle={closeModal}>Application Details</ModalHeader>
                 <ModalBody>
-                    {selectedApplication && <ViewApplication application={selectedApplication} />}
+                    {selectedApplication && <ViewApplication application={selectedApplication} fetchlist={fetchApplications} toggle={closeModal} verificationStatus={applicationStatus} verificationRemark={applicationRemark} verifyType="verify" />}
                 </ModalBody>
             </Modal>
         </React.Fragment>

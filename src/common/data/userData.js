@@ -1,13 +1,17 @@
 import axios from 'axios';
 
-const instance = axios.create({ baseURL: 'https://admission.cubiclehr.com/api/v1' });
+const instance = axios.create({ baseURL: 'https://salmon-reindeer-594271.hostingersite.com/api/v1' });
+// const instance = axios.create({ baseURL: 'https://admission.cubiclehr.com/api/v1' });
 
 const formAdminRoot = '/admissionForm/#/app';
 
 
-const apiBaseUrl = 'https://admission.cubiclehr.com/api/v1';
+const apiBaseUrl = 'https://salmon-reindeer-594271.hostingersite.com/api/v1';
+const StorageUrl = 'https://salmon-reindeer-594271.hostingersite.com/storage/app/';
 
-const StorageUrl = 'https://admission.cubiclehr.com/storage/app/';
+// const apiBaseUrl = 'https://admission.cubiclehr.com/api/v1';
+// const StorageUrl = 'https://admission.cubiclehr.com/storage/app/';
+
 
 const getTokenFromLocalStorage = () => {
     const cUserData = JSON.parse(localStorage.getItem('authUser'));
