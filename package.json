@@ -1,7 +1,9 @@
 {
+  "proxy": "http://localhost:3000",
   "name": "Cubicle HRMS",
   "version": "2.4.0",
   "private": true,
+  "homepage": "https://admission.cubiclehr.com/verifier3",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^43.3.1",
     "@ckeditor/ckeditor5-react": "^9.3.1",

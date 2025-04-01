@@ -13,8 +13,9 @@ const ReverificationList = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedApplication, setSelectedApplication] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
+    const [applicationStatus, setApplicationStatus] = useState();
 
-    const applicantsApiUrl = `${apiBaseUrl}/verification/list`;
+    const applicantsApiUrl = `${apiBaseUrl}/reverification`;
 
     const breadcrumbItems = [
         { title: "Home", link: "#" },
@@ -25,7 +26,7 @@ const ReverificationList = () => {
     const fetchApplications = useCallback(async () => {
         setLoading(true);
         try {
-            const response = await apiRequestAsync("get", applicantsApiUrl, null);
+            const response = await apiRequestAsync("get", `${applicantsApiUrl}/list`, null);
             if (response.status === 200) {
                 setApplications(response.result || []);
             } else {
@@ -44,8 +45,9 @@ const ReverificationList = () => {
 
     // Handle "View" button click
     const handleViewApplication = (application) => {
-        console.log(application);        
-        setSelectedApplication(application);
+        console.log(application.id);        
+        setApplicationStatus(application.verification_status)
+        setSelectedApplication(application.id);
         setModalOpen(true);
     };
 
@@ -69,18 +71,19 @@ const ReverificationList = () => {
         pending: "#ffc107",         // Yellow
         reverification: "blue",     // Blue
     };
-    
+
     const columns = useMemo(() => [
         { Header: "#", accessor: "index", Cell: ({ row }) => row.index + 1 },
         { Header: "Application No", accessor: "application_no" },
+        { Header: "Course Name", accessor: "course_name" },
         { Header: "First Name", accessor: "first_name" },
         { Header: "Middle Name", accessor: "middle_name" },
         { Header: "Last Name", accessor: "last_name" },
-        { 
-            Header: "Verification Status", 
+        {
+            Header: "Verification Status",
             accessor: "verification_status",
             Cell: ({ value }) => (
-                <span 
+                <span
                     style={{
                         backgroundColor: COLORS[value.toLowerCase()] || "#6c757d", // Default gray
                         color: "#fff",
@@ -97,12 +100,11 @@ const ReverificationList = () => {
             )
         },
         { Header: "Verified By", accessor: "verified_by_name" },
-        { Header: "Course Name", accessor: "course_name" },
         {
             Header: "Actions",
             accessor: "actions",
             Cell: ({ row }) => (
-                <Button color="info" size="sm" onClick={() => handleViewApplication(row.original.id)}>
+                <Button color="info" size="sm" onClick={() => handleViewApplication(row.original)}>
                     View
                 </Button>
             ),
@@ -154,7 +156,7 @@ const ReverificationList = () => {
             <Modal isOpen={modalOpen} toggle={closeModal} size="xl">
                 <ModalHeader toggle={closeModal}>Application Details</ModalHeader>
                 <ModalBody>
-                    {selectedApplication && <ViewApplication application={selectedApplication} />}
+                    {selectedApplication && <ViewApplication application={selectedApplication}  fetchlist={fetchApplications} toggle={closeModal} verificationStatus={applicationStatus} verifyType="reverify" />}
                 </ModalBody>
             </Modal>
         </React.Fragment>

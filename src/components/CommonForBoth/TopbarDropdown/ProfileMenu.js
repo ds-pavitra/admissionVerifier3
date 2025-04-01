@@ -47,7 +47,7 @@ class ProfileMenu extends Component {
                         <DropdownItem className="d-block" href="#"><span className="badge badge-success float-end mt-1">11</span><i className="ri-settings-2-line align-middle me-1"></i> {this.props.t('Settings')}</DropdownItem>
                         <DropdownItem href="#"><i className="ri-lock-unlock-line align-middle me-1"></i> {this.props.t('Lock screen')}</DropdownItem>
                         <DropdownItem divider /> */}
-                        <DropdownItem className="text-danger" href="/logout"><i className="ri-shut-down-line align-middle me-1 text-danger"></i> {this.props.t('Logout')}</DropdownItem>
+                        <DropdownItem className="text-danger" href="/verifier3/logout"><i className="ri-shut-down-line align-middle me-1 text-danger"></i> {this.props.t('Logout')}</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
             </React.Fragment>
